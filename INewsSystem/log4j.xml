@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration PUBLIC "-//LOGGER" 
+    "http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/xml/doc-files/log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+	<!-- file appender -->
+	<appender name="file" class="org.apache.log4j.RollingFileAppender">
+		<!-- name of the file -->
+		<param name="File" value="C:/temp/info.log" />
+
+		<!-- maximum log file size -->
+		<param name="MaxFileSize" value="100MB" />
+
+		<!-- log pattern -->
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{ABSOLUTE} %5p %c{1}:%L - %m%n" />
+		</layout>
+	</appender>
+
+	<!-- console appender -->
+	<appender name="stdout" class="org.apache.log4j.ConsoleAppender">
+		<!-- log pattern -->
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{ABSOLUTE} -%5p - %m%n" />
+		</layout>
+
+		<!-- Only show info messages in the command line -->
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<!-- the minimum log level which will be shown -->
+			<param name="levelMin" value="INFO" />
+
+			<!-- the maximum log level which will be shown -->
+			<param name="levelMax" value="INFO" />
+		</filter>
+	</appender>
+
+	<!-- the root category -->
+	<root>
+		<!-- Log all messages with level higher than "debug" to the file. Because 
+			of the filter set in the console appender, the console only will show the 
+			"info" messages -->
+		<level value="DEBUG" />
+		<appender-ref ref="stdout" />
+	</root>
+	<logger name="net.fmchan">
+		<level value="INFO" />
+		<appender-ref ref="file" />
+	</logger>
+</log4j:configuration>
